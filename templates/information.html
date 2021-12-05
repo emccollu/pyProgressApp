@@ -1,0 +1,63 @@
+{% extends 'dashboard.html' %}
+{% block body %}
+
+  <div style="row">
+    <div class="container">
+
+    <h4>Information on Degree Progress Generator</h4>
+    <p> The generated results are by no means definitive, though they are as close as possible.
+    <br> Every department has specific requirements, and every degree has another set of requirements.
+    <br> Also, all requirements can change, and the ones for your degree are based on the year you began.
+    <br> The generator's results for grade calulations will be accurate. The results for majors an minors are based on the current catalog, and
+         represent your status if you signed up for them in this catalog year.
+    <br> For now, here is some information on how your degree progress is determined, based on the <a href="https://catalog.unlv.edu/index.php">UNLV course catalog</a> and school's website.
+    <br>Links will be provided to where this information was posted by the school.
+    <p> If you notice anything incorrect or missing, please feel free to contact me.</p>
+  <div>
+    <h4>Overall</h4>
+    <ul>
+      <li>Total credits to graduate must be at least 120.</li>
+      <li><a href="https://www.unlv.edu/provost/gen-ed/requirements">General Requirements</a> are required for every student, though often they are covered by the require courses for that major.</li>
+      <li> Upper Division courses are typically meant as level 300+, in a few cases it's 400+.</li>
+      <li>Above that, 500+ level courses, are for a masters degree and not covered here.</li>
+  </div>
+  <div>
+  <h4>The General Requirements</h4>
+  <p><a href="https://www.unlv.edu/provost/gen-ed/core">Click here</a> for the list of courses that coer the seminars, english, constitution, and math.
+  <br><a href="https://www.unlv.edu/provost/gen-ed/distribution">Click here</a> for the list of courses that cover humanities, fine arts, life an physical science,
+        analytical thinking, and social science.
+  <br><a href="https://www.unlv.edu/sites/default/files/page_files/113/Multicultural-Courses.8-18.pdf">Click here</a> for the list of courses that cover multicultural.
+  <br><a href="https://www.unlv.edu/sites/default/files/page_files/113/International-Courses6-18.pdf">Click here</a> for the list of courses that cover international.
+  <br><a href="https://www.unlv.edu/provost/distribution-area">Click here</a> for the list of majors exempt from some of the general requirements.</p>
+  </div>
+  <div class="">
+    <h4>Grades</h4>
+    <p>The generator will display the courses that have the most impact on your grade.
+      <br> You might think "obviously it's the lowest grade," but its a combination of grades and credits.
+      <br> For example, a D in a 3 credit course has the same impact on your GPA as a C in a 4 credit course.
+      <br> The details page will show a list of all your grades in order of their amount of negative impact.
+      <br> Some courses have a limit on the number of attempts, and if you retake it after that then both grades will effect your gpa.
+    </p>
+  </div>
+  <br><br><br>
+</div>
+</div>
+
+
+  {% endblock %}
+  {% block footer %}
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item">
+      <a href="{{ url_for('dashboard') }}">Dashboard</a></li>
+    <li class="breadcrumb-item">
+      <a href="{{ url_for('addCourse') }}">Edit Courses</a></li>
+    <li class="breadcrumb-item">
+      <a href="{{ url_for('general') }}"></a>
+      GenReqs
+    </li>
+    <li class="breadcrumb-item">
+      <a href="{{ url_for('grades') }}">Grades</a></li>
+    <li class="breadcrumb-item">
+      <a href="http://erignmccollum.com/" target="_blank">About</a></li>
+  </ol>
+  {% endblock %}

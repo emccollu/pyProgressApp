@@ -1,0 +1,115 @@
+{% extends 'layout.html' %}
+{% block header %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+{% endblock %}
+{% block sidebar %}
+
+  <li class="nav-item"><div id="sidebutton" style="border-radius: 30px 0px 0px 0px;">
+    <a class="nav-link" href="{{ url_for('dashboard') }}"><i class="fa fa-dashboard" style="font-size:24px"></i>
+    <span id="sidelink">Dashboard</span></a></div>
+  </li>
+  <li class="nav-item"><div id="sidebutton">
+    <a class="nav-link" href="{{ url_for('general') }}"><i class="fa fa-address-card" style="font-size:24px"></i>
+    <span id="sidelink">General Status</span></a></div>
+  </li>
+  <li class="nav-item "><div  id="sidebutton">
+    <a class="nav-link" href="{{ url_for('grades') }}"><i class="fa fa-calculator" style="font-size:24px"></i>
+    <span id="sidelink">Grades</span></a></div>
+  </li>
+  <li class="nav-item"><div  id="sidebutton">
+    <a class="nav-link" href="{{ url_for('courselist') }}"><i class="fa fa-edit" style="font-size:24px"></i>
+    <span id="sidelink">Edit Courses</span></a></div>
+  </li>
+  <li class="nav-item"><div  id="sidebutton">
+    <a class="nav-link" href="{{ url_for('information') }}"><i class="fa fa-info-circle" style="font-size:24px"></i>
+    <span id="sidelink">About</span></a></div>
+  </li>
+
+{% endblock %}
+{% block body %}
+{% set grades = session['grades'] %}
+<div class="container">
+
+<!--  -->
+<div class="d-flex">
+  <div class="flex-fill">
+    <h4><i class="fa fa-user pr-2" style="font-size:22px;">
+    </i>Welcome, {{session['name']}}</h4>
+  </div>
+</div>
+
+<br>
+
+<div class="row">
+  <div class="col-sm-4 m-2 px-0 border border-info">
+    <div class="text-center p-4">
+      <h4>Add/Delete Courses From Your List:</h4>
+      <p>Add courses, credits, and grades here.
+        <br>The information provided will be included in
+        <br>the calculations and requirements in the other sections.
+      </p>
+    </div>
+      <a href="{{ url_for('courselist') }}">
+      <button type="button" class="btn btn-info btn-block">Course List</button>
+    </a>
+  </div>
+  <div class="col-sm-4 m-2 px-0 border border-warning">
+    <div class="text-center p-4">
+      <h4> View Detailed Info About Your GPA:</h4>
+      <p>After adding your course history and grades,
+        <br>detailed information about your GPA and
+        <br>point distribution are on your grades page.
+      </p>
+    </div>
+      <a href="{{ url_for('grades') }}">
+      <button type="button" class="btn btn-warning btn-block">Grade Stats</button>
+      </a>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-sm-4 m-2 px-0 border border-success">
+    <div class="text-center p-4">
+      <h4>General Requirements Status:</h4>
+      <p>After adding your course history, this page
+        <br>will show you which general requirements can
+        <br>be fullfilled by which courses.
+      </p>
+    </div>
+      <a href="{{ url_for('general') }}">
+        <button type="button" class="btn btn-success btn-block">General Reqs</button>
+      </a>
+  </div>
+  <div class="col-sm-4 m-2 px-0 border border-secondary">
+    <div class="text-center p-4">
+      <h4>Information About Using This Site:</h4>
+      <p>For more info on usin this site, and links to
+        <br>UNLV's documenation on specific topics,
+        <br>this page shoul answer any questions you have.
+      </p>
+    </div>
+      <a href="{{ url_for('information') }}">
+      <button type="button" class="btn btn-secondary btn-block">About Page</button>
+      </a>
+  </div>
+</div>
+
+
+</div>
+{% endblock %}
+{% block footer %}
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item active">Dashboard</li>
+  <li class="breadcrumb-item">
+    <a href="{{ url_for('courselist') }}">Edit Courses</a></li>
+  <li class="breadcrumb-item">
+    <a href="{{ url_for('general') }}">GenReqs</a></li>
+  <li class="breadcrumb-item">
+    <a href="{{ url_for('grades') }}">Grades</a></li>
+  <li class="breadcrumb-item">
+    <a href="{{ url_for('information') }}">About</a></li>
+</ol>
+
+{% endblock %}

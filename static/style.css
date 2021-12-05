@@ -1,0 +1,68 @@
+  #topbar {
+    background-color: #362633;
+    color: #b2b2b2;
+  }
+  .nav-link, .navbar-brand {
+    color: #b2b2b2;
+  }
+  .nav-link:hover, .navbar-brand:hover {
+    color: #f4e1d2;
+  }
+  #sidelink {
+    font-size: 12px;
+  }
+  #sidebutton {
+    background-color: #362633;
+    color: #b2b2b2;
+    margin: 3%;
+    opacity:1.0;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  }
+  #sidebarall{
+    text-align:center;
+    background-color: #D2D9D7;
+    color: #484f4f;
+    border-radius: 35px 0px 0px 0px;
+  }
+  .container-fluid {
+    background-color: #D2D9D7;
+    border-radius: 40px 0px 0px 0px;
+  }
+  #gradecolumn {
+    float: left;
+    width: 25%;
+    height: 25%;
+    padding: 0 5px;
+  }
+  #graderow {margin: 0 -5px;}
+  /* Clear floats after the columns */
+  #graderow:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+  /* Responsive columns */
+  @media screen and (max-width: 600px) {
+    #gradecolumn {
+      width: 10%;
+      display: block;
+      margin-bottom: 5px;
+    }
+  }
+  /* Style the counter cards */
+  #gradecard {
+    box-shadow: 8px 8px 5px lightgrey;
+    padding: 5px;
+    margin-left: 15%;
+    text-align: center;
+    color: #FAFBFF;
+    border-radius: 5px 50px 30px;
+  }
+  #genIcons {
+     solid green;
+     color:green;
+     font-size:200%;
+  }
+  #genCreds {
+    font-size:15px;
+  }

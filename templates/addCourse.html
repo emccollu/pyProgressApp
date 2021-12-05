@@ -1,0 +1,72 @@
+{% extends 'dashboard.html' %}
+
+{% block body %}
+<div class="container">
+
+<!--  -->
+<div class="d-flex">
+  <div class="mr-auto p-2 my-0">
+    <h4><i class="fa fa-user pr-2" style="font-size:22px;">
+    </i>Add Course</h4>
+  </div>
+</div>
+<br>
+
+<div class="media p-3">
+  <div class="media-body px-3">
+    <p> Note: For accurate results, enter a grade for courses taken at UNLV. Transfers o not count towards your GPA. </p>
+    {% from "includes/_formhelpers.html" import render_field %}
+    <form class="form-inline" method="POST" action="">
+      {% if session['courseamt'] <= 100 %}
+      <div class="form-group mb-2 mr-sm-2">
+        {{ render_field(form.coursenum, class_="form-control", id="editor", placeholder="ie COM101 or CHEM355L") }}
+      </div>
+      <div class="form-group mb-2 mr-sm-2">
+        {{ render_field(form.grade, class_="form-control", id="editor") }}
+      </div>
+      <div class="form-group mb-2 mr-sm-2">
+        {{ render_field(form.credits, class_="form-control", id="editor") }}
+      </div>
+      <div class="form-group mb-2 mr-sm-2">
+        <input class="btn btn-primary" type="submit" value="Submit">
+      </div>
+      {% else %}
+      <p>You have reached the limit for your class list.</p>
+      {% endif %}
+    </form>
+  </div>
+</div>
+<br>
+<table class="table table-bordered table-sm border-right-0">
+  <thead class="">
+    <tr>
+      <th>Number</th>
+      <th>Course Name</th>
+      <th class="text-center">Grade</th>
+      <th class="text-center">Credits</th>
+    </tr>
+  </thead>
+  <tbody>
+{% for course in session['courses'] %}
+  <tr >
+    <td class="pb-0">{{course[0]}}</td>
+    {% if course[4]==None %}
+    <td class="pb-0">No course listing found.</td>
+    {% else %}
+    <td class="pb-0">{{course[4]}}</td>
+    {% endif %}
+    <td class="pb-0 text-center">{{course[3]}}</td>
+    <td class="pb-0 text-center">{{course[1]}}</td>
+    <td class="p-0 border border-0" >
+      <form action="{{url_for('delCourse', id=course[2])}}" method="post">
+        <input type="hidden" name="_method" value="DELETE">
+        <input type="submit" value="Delete" class="btn btn-danger btn-sm">
+      </form>
+    </td>
+  </tr>
+{% endfor %}
+  </tbody>
+</table>
+</div>
+
+{% endblock %}

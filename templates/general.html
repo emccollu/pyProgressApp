@@ -1,0 +1,183 @@
+{% extends 'dashboard.html' %}
+{% block head %}
+
+{% endblock%}
+
+{% block body %}
+
+
+<div class="container">
+<!--
+-->
+<div class="d-flex w-100">
+  <div class="flex-fill">
+    <h4><i class="fa fa-user pr-2" style="font-size:22px;">
+    </i>General Requirements</h4>
+  </div>
+</div>
+<p></p>
+  <!-- Graph of General Reqs
+  <div class="d-flex flex-wrap justify-content-center">
+-->
+<div class="d-flex flex-row justify-content-center">
+  <div class="p-2 flex-fill" id="donut"></div>
+  <div class="p-2 flex-fill align-self-center">
+    <small><p>UNLV Requirements (min):</p>
+      <ul>
+        <li>1st Year Seminar, 2 credits</li>
+        <li>2nd Year Seminar, 3 credits</li>
+        <li>English Composition, 6 credits</li>
+        <li>Constitutions, 4 credits</li>
+        <li>Mathematics, 3 credits</li>
+        <li>Humanities, 6 credits</li>
+        <li>Fine Arts, 3 credits</li>
+        <li>Life/Phys Sciences, 6 credits</li>
+        <li>Analytical Thinking, 3 credits</li>
+        <li>Social Sciences, 9 credits</li>
+        <li>Multicultural, 3 credits</li>
+        <li>International, 3 credits</li>
+      </ul>
+    </small>
+  </div>
+</div>
+
+<br>
+<p class="mx-4">
+  Students are required to complete five
+  <a href="https://www.unlv.edu/provost/gen-ed/core" target="_blank">
+    Core Requirements
+  </a>, one each for
+  <a href="https://www.unlv.edu/provost/multicultural-requirements" target="_blank">
+    Multicultural and International
+  </a>, and five for
+  <a href="https://www.unlv.edu/provost/gen-ed/distribution" target="_blank">
+    Distribution Requirements
+  </a>.
+  <br>Many departments and majors cover some of these areas in their own requirements.
+</p>
+<div class="d-flex">
+<table class="table table-hover p-0 mx-4">
+  <tr> <th>Requirement</th> <th>Courses</th> <th>Status</th> </tr>
+  <tbody>
+    {% set x = 0 %}
+    {% for x in range(12) %}
+    <tr>
+      <td>
+    {{ session['requiregen'][x] }}
+  </td>
+  <td>
+    {% for item in session['gentest'][x] %}
+    {{ item[0] }}
+    {% endfor %}
+  </td>
+  <td>
+    {% if session['dashgen'][x][1]=="success" %}
+    <i class="fa fa-check-square-o text-success" style="font-size:12px;"> 100%</i>
+    {% else %}
+    <i class="fa fa-minus" style="font-size:12px;"></i>
+    {% endif %}
+  </td>
+    {% endfor %}
+    </tr>
+
+  </tbody>
+</table>
+</div>
+<!--
+-->
+  <div class="media border row p-3">
+    <div class="media-body align-self-center">
+      <h4 style="text-align:center;"></h4>
+      <p></p>
+    </div>
+  </div>
+
+
+
+
+
+<script>
+var pie = new d3pie("donut", {
+  header: {
+    title: {
+      text: "General Requirements",
+      fontSize: 16,
+      font: "courier"
+    },
+    subtitle: {
+      text: "Differs by Department or Major*",
+      color: "#999999",
+      fontSize: 10,
+      font: "courier"
+    },
+    location: "pie-center",
+    titleSubtitlePadding: 10
+  },
+  footer: {
+    text: "* Either it's covered by the degree requirements or taken as an elective.",
+    color: "#999999",
+    fontSize: 10,
+    font: "open sans",
+    location: "bottom-left"
+  },
+  size: {
+    pieInnerRadius: "70%",
+  },
+  data: {
+    sortOrder: "value-asc",
+    content: [
+      { label: "Incomplete", value: {{ session['needgen'] }}, color: "#86898F" },
+      { label: "1st Seminar", value: {{ session['dashgen'][0][0] }}, color: "#979BBF" },
+      { label: "2nd Seminar", value: {{ session['dashgen'][1][0] }}, color: "#91C2BF" },
+      { label: "English", value: {{ session['dashgen'][2][0] }}, color: "#C9CFFF" },
+      { label: "Constitution", value: {{ session['dashgen'][3][0] }}, color: "#B7BCE8" },
+      { label: "Math", value: {{ session['dashgen'][4][0] }}, color: "#7879C2" },
+      { label: "Humanities", value: {{ session['dashgen'][5][0] }}, color: "#88A8C2" },
+      { label: "Fine Arts", value: {{ session['dashgen'][6][0] }}, color: "#9EA0FF" },
+      { label: "Life/Phys", value: {{ session['dashgen'][7][0] }}, color: "#9F9EEB" },
+      { label: "Analytical", value: {{ session['dashgen'][8][0] }}, color: "#7A88C2" },
+      { label: "Social Sci", value: {{ session['dashgen'][9][0] }}, color: "#ABD4F5" },
+      { label: "International", value: {{ session['dashgen'][10][0] }}, color: "#A1B4FF" },
+      { label: "Multicultural", value: {{ session['dashgen'][11][0] }}, color: "#93A5EB" }
+    ]
+  },
+  tooltips: {
+    enabled: true,
+    type: "placeholder",
+    string: "{label}, {value} crds",
+    styles: {
+      fadeInSpeed: 500,
+      backgroundColor: "#1D2C40",
+      backgroundOpacity: 0.8,
+      color: "#EDF4FF",
+      borderRadius: 4,
+      font: "verdana",
+      fontSize: 12,
+      padding: 5
+    }
+  },
+  callbacks: {
+    onMouseoverSegment: function(info) {
+      console.log("mouseover:", info);
+    },
+    onMouseoutSegment: function(info) {
+      console.log("mouseout:", info);
+    }
+  }
+});
+</script>
+</div>
+{% endblock %}
+{% block footer %}
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">
+    <a href="{{ url_for('dashboard') }}">Dashboard</a></li>
+  <li class="breadcrumb-item">
+    <a href="{{ url_for('courselist') }}">Edit Courses</a></li>
+  <li class="breadcrumb-item active">GenReqs</li>
+  <li class="breadcrumb-item">
+    <a href="{{ url_for('grades') }}">Grades</a></li>
+  <li class="breadcrumb-item">
+    <a href="{{ url_for('information') }}">About</a></li>
+</ol>
+{% endblock %}

@@ -1,0 +1,131 @@
+{% extends 'dashboard.html' %}
+
+{% block body %}
+{% set grades = session['grades'] %}
+<div class="container">
+
+<!--  -->
+<div class="d-flex">
+  <div class="mr-auto p-2 my-0">
+    <h4><i class="fa fa-user pr-2" style="font-size:22px;">
+    </i>Grade Calculations</h4>
+  </div>
+</div>
+
+<br><br>
+<div class="row" id="graderow">
+<div class="column col-sm-3" id="gradecolumn">
+  <div class="card" id="gradecard" style="background-color: #618685;">
+    <i class="fa fa-graduation-cap" style="font-size:45px;"></i>
+    <h3>{{ session['studGPA'] }}</h3>
+    <p>GPA</p>
+  </div>
+</div>
+<div class="column col-sm-3" id="gradecolumn">
+  <div class="card" id="gradecard" style="background-color: #36486b;">
+    <i class="fa fa-apple" style="font-size:45px;"></i>
+    <h3>{{session['studGrade']}}</h3>
+    <p>Overall Grade</p>
+  </div>
+</div>
+<div class="column col-sm-3" id="gradecolumn">
+  <div class="card" id="gradecard" style="background-color: #4040a1;">
+      <i class="fa fa-university" style="font-size:45px;"></i>
+      <h3>{{ session['studPnts'] }}</h3>
+      <p>Grade Points</p>
+    </div>
+  </div>
+  <div class="column col-sm-3" id="gradecolumn">
+    <div class="card" id="gradecard" style="background-color: #622569;">
+    <i class="fa fa-user-plus" style="font-size:45px;"></i>
+    <h3>+{{session['nextGrade']}}</h3>
+    <p>To Next Grade</p>
+  </div>
+</div>
+</div>
+<br>
+
+<div class="row">
+  <div class="col-sm-7 align-self-center">
+    <h4 style="text-align:center;">How GPA is determined:</h4>
+    <ul>
+      <li>Each letter grade has a value between 0 and 4.0 associated with it.</li>
+      <li>Points for each course are found by multiplying the number of credits by the value of the grade.</li>
+      <li>Adding together all the points, dividing it by the total credits, equals your GPA.</li>
+      <li>College grades, generally, don't have an A+ grade. Recieving an A+ might be a nice gesture, but it would have the same value as an A.</li>
+      <li>There is also no D+, D-, or F+.</li>
+  </ul>
+  </div>
+  <div class="col-sm-5"><br>
+    <table class="table table-hover" style="padding:0px;">
+      <tr><th></th><th>1 Cr</th><th>2 Cr</th><th>3 Cr</th><th>4 Cr</th></tr>
+      <tbody>
+        <tr><td>A</td><td>4.00</td><td>8.00</td><td>12.00</td><td>16.00</td></tr>
+        <tr><td>A-</td><td>3.67</td><td>7.34</td><td>11.10</td><td>14.68</td></tr>
+        <tr><td>B+</td><td>3.33</td><td>6.66</td><td>9.99</td><td>13.32</td></tr>
+        <tr><td>B</td><td>3.00</td><td>6.00</td><td>9.00</td><td>12.00</td></tr>
+        <tr><td>B-</td><td>2.67</td><td>5.34</td><td>8.01</td><td>10.68</td></tr>
+        <tr><td>C+</td><td>2.33</td><td>4.66</td><td>6.99</td><td>9.32</td></tr>
+        <tr><td>C</td><td>2.00</td><td>4.00</td><td>6.00</td><td>8.00</td></tr>
+        <tr><td>C-</td><td>1.67</td><td>3.34</td><td>5.01</td><td>6.68</td></tr>
+        <tr><td>D</td><td>1.00</td><td>2.00</td><td>3.00</td><td>4.00</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<br>
+<h4>Point's Lost Summary:</h4>
+<div class="media">
+  <div class="media-body align-self-center">
+  <small><i>Note: Repeating a class is expensive, with no guarantee, and should only be done
+    if necessary.</i></small>
+</div>
+</div>
+
+<br>
+<table class="table table-bordered table-sm">
+<thead class="thead-light">
+<tr>
+  <th style="width:20%; text-align:center;">Number</th>
+  <th style="width:10%;">Grade</th>
+  <th style="width:10%;">Credits</th>
+  <th style="width:10%;">Possible</th>
+  <th style="width:10%;">Earned</th>
+  <th style="width:10%;">Lost</th>
+</tr>
+</thead>
+<tbody>
+{% if session['courseamt'] != 0 %}
+    {% for item in grades %}
+    <tr>
+    <td style="text-align:center;">{{ item[0] }}</td>
+    <td>{{ item[1] }}</td>
+    <td>{{ item[2] }}</td>
+    <td>{{ item[3] }}</td>
+    <td>{{ item[4] }}</td>
+    <td>{{ item[5] }}</td>
+  </tr>
+    {% endfor %}
+    {% else %}
+    <td> Add some course first. </td>
+    {% endif %}
+</tbody>
+</table>
+
+
+  </div>
+
+{% endblock %}
+{% block footer %}
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">
+    <a href="{{ url_for('dashboard') }}">Dashboard</a></li>
+  <li class="breadcrumb-item">
+    <a href="{{ url_for('courselist') }}">Edit Courses</a></li>
+  <li class="breadcrumb-item">
+    <a href="{{ url_for('general') }}">GenReqs</a></li>
+    <li class="breadcrumb-item active">Grades</li>
+  <li class="breadcrumb-item">
+    <a href="{{ url_for('information') }}">About</a></li>
+</ol>
+{% endblock %}
